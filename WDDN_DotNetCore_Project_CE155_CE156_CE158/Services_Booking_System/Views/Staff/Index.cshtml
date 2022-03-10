@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Services_Booking_System.Models.Staff>
+@inject SignInManager<ApplicationUser> signinManager;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Staff List</h1>
+<flash dismissable="true" />
+@if (signinManager.IsSignedIn(User) && !User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Apply As Staff</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StaffName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Service.ServiceName)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

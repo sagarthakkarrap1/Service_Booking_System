@@ -1,0 +1,81 @@
+﻿@model Services_Booking_System.ViewModels.SubServiceEditViewModel
+@using System.Net.Http;
+
+@{
+    ViewData["Title"] = "Edit";
+    var IsPostBack = ViewBag.IsPostBack;
+    var PhotoPath = "/SubServiceImages/" + Model.ExitstingPhotoPath;
+}
+
+<h1>Edit</h1>
+
+<h4>Service</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        @*@if (!ViewData.ModelState.IsValid && ViewData.ModelState["success"].Errors.Count > 0 && !ViewData.ModelState["success"].Errors.First().ErrorMessage.ToString().Equals(""))
+        {
+            <div class="alert alert-success">
+                @ViewData.ModelState["success"].Errors.First().ErrorMessage
+            </div>
+        }*@
+        <form asp-action="Edit" asp-controller="SubServices" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ExitstingPhotoPath" />
+            <div class="form-group">
+                <label asp-for="SubServiceName" class="control-label"></label>
+                <input asp-for="SubServiceName" class="form-control" />
+                <span asp-validation-for="SubServiceName" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="SubServiceImage" class="col-sm-5 control-label"></label>
+                <div class="col-sm-10">
+                    <div class="custom-file">
+                        <input asp-for="SubServiceImage" class="form-control custom-file-input" />
+                        <label class="custom-file-label">Click here to change photo</label>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceId" class="control-label"></label>
+                <select asp-for="ServiceId" class="form-control" asp-items="ViewBag.ServiceId"></select>
+            </div>
+            <div class="form-group col-sm-4 offset-4">
+                <img src="@PhotoPath" width=200px asp-append-version="true" />
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" value="Update" class="btn btn-primary">Update</button>
+                    <a asp-action="index" asp-controller="SubServices" class="btn btn-primary">Cancel</a>
+                </div>
+            </div>
+            @section Scripts {
+                <script>
+                    $(document).ready(function () {
+                        $('.custom-file-input').on("change", function () {
+                            var fileName = $(this).val().split("\\").pop();
+                            $(this).next('.custom-file-label').html(fileName);
+                        });
+                    });
+                </script>
+            }
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

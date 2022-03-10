@@ -1,0 +1,51 @@
+﻿@model Services_Booking_System.Models.Service
+
+@{
+    ViewData["Title"] = "Details";
+    var PhotoPath = "/ServiceImages/" + Model.ServiceImage;
+}
+
+<h1>Details</h1>
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card" style="margin-left:200px;min-width:18rem;max-width:30.5%;">
+
+            <div class="card-header text-center">
+                <h3>@Html.DisplayFor(model => model.ServiceName)</h3>
+            </div>
+            <div class="card-body text-center">
+                <img class="card-img-top" style="width:200px;height:200px" src="@PhotoPath" asp-append-version="true" />
+            </div>
+
+            <div class="card-footer text-center">
+                @*@if()*@
+                <a asp-action="Edit" class="btn btn-primary m-1" asp-route-id="@Model.Id">Edit</a> |
+                <a asp-action="Delete" class="btn btn-danger m-1" asp-route-id="@Model.Id">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div>
+        <h4>Service</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ServiceName)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ServiceName)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ServiceImage)
+            </dt>
+            <dd class = "col-sm-10">
+                <img class="" width="25px" src="@PhotoPath" />
+            </dd>
+
+        </dl>
+    </div>*@
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

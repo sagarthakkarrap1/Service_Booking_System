@@ -1,0 +1,66 @@
+﻿@model Services_Booking_System.ViewModels.ServiceEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    var PhotoPath = "/ServiceImages/" + Model.ExitstingPhotoPath;
+}
+
+<h1>Edit Service</h1>
+
+@*<h4>Service</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Services" asp-action="Edit" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ExitstingPhotoPath" />
+            <div class="form-group">
+                <label asp-for="ServiceName" class="control-label"></label>
+                <input asp-for="ServiceName" class="form-control" />
+                <span asp-validation-for="ServiceName" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ServiceImage" class="col-sm-5 control-label"></label>
+                <div class="col-sm-10">
+                    <div class="custom-file">
+                        <input asp-for="ServiceImage" class="form-control custom-file-input" />
+                        <label class="custom-file-label">Click here to change photo</label>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group col-sm-4 offset-4">
+                <img src="@PhotoPath" width="200px" asp-append-version="true" />
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" value="Update" class="btn btn-primary">Update</button>
+                    <a asp-action="index" asp-controller="Services" class="btn btn-primary">Cancel</a>
+                </div>
+            </div>
+
+            @section Scripts {
+                <script>
+                    $(document).ready(function () {
+                        $('.custom-file-input').on("change", function () {
+                            var fileName = $(this).val().split("\\").pop();
+                            $(this).next('.custom-file-label').html(fileName);
+                        });
+                    });
+                </script>
+            }
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
